@@ -1,0 +1,22 @@
+FROM ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install systemd + sudo + basics
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends software-properties-common systemd systemd-cron sudo openssh-server
+
+# Setup systemd to run within Docker (requires cgroupsv2)
+RUN rm -f /lib/systemd/system/systemd*udev*
+RUN rm -f /lib/systemd/system/getty.target
+ENV container docker
+VOLUME ["/sys/fs/cgroup"]
+CMD ["/lib/systemd/systemd"]
+
+# Setup pyinfra user with nopasswd sudo access
+RUN useradd -ms /bin/bash pyinfra
+RUN echo "pyinfra ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/pyinfra-sudo
+
+# Copy over test SSH key & enable
+COPY insecure_private_key.pub /home/pyinfra/.ssh/authorized_keys
+RUN systemctl enable ssh
