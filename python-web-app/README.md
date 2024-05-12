@@ -14,6 +14,9 @@ This example sets up two servers one database and one webserver. The webserver i
 # Run pyinfra against them
 pyinfra inventories/docker.py deploy.py
 
-# Cleanup (delete) Docker containers
+# The app should now be accessible in browser on localhost:5000
+# (the app is just a fork of a tutorial: https://github.com/Fizzadar/Flask-Web-App-Tutorial)
+
+# Delete Docker containers
 ./docker-stop.sh
 ```
