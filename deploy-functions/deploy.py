@@ -31,7 +31,7 @@ def setup_nginx():
         name="Reload nginx",
         service="nginx",
         reloaded=True,
-        _if_changed=remove_default_config,
+        _if=remove_default_config.did_change,
     )
 
 
