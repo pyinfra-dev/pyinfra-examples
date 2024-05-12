@@ -1,0 +1,8 @@
+[Unit]
+Description=A test Python app
+
+[Service]
+Type=simple
+Environment="SQLALCHEMY_DATABASE_URI=mysql+pymysql://python-app@pyinfra-example-python-web-app-dbserver/python_app"
+WorkingDirectory=/opt/flask-web-app
+ExecStart=python3 main.py

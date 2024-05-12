@@ -1,0 +1,18 @@
+[Unit]
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+Alias=mysql.service
+Alias=mysqld.service
+
+[Service]
+Type=notify
+User=mysql
+Group=mysql
+CapabilityBoundingSet=CAP_IPC_LOCK
+ExecStart=/usr/sbin/mysqld $MYSQLD_OPTS $_WSREP_NEW_CLUSTER $_WSREP_START_POSITION
+KillSignal=SIGTERM
+Restart=on-abort
+RestartSec=5s
+UMask=007
