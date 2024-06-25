@@ -1,0 +1,28 @@
+name: Test Deploys
+
+on:
+  push:
+
+jobs:
+  deploy-test:
+    strategy:
+      matrix:
+        include:
+          - dir: python-web-app
+            deploy-file: deploy.py
+            inventory-file: inventories/docker.py
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - uses: docker/setup-buildx-action@v2
+      - run: pip install pyinfra --pre
+      - run: ./docker-start.sh
+        working-directory: ${{ matrix.dir }}
+      - name: Run pyinfra deploy
+        run: pyinfra -y ${{ matrix.inventory-file }} ${{ matrix.deploy-file }}
+        working-directory: ${{ matrix.dir }}
+      - run: ./docker-stop.sh
+        working-directory: ${{ matrix.dir }}

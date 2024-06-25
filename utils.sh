@@ -13,6 +13,7 @@ function run_test_container() {
     docker run -d "${@:2}" \
         --network "$DOCKER_TEST_NETWORK_NAME" \
         --name "$1" \
+        --cgroupns=host \
         --volume /sys/fs/cgroup:/sys/fs/cgroup \
         --tmpfs /run \
         --tmpfs /run/lock \
