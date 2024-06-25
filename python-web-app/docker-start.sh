@@ -5,6 +5,8 @@ set -euo pipefail
 source "$(realpath "$(realpath "$(dirname "${BASH_SOURCE[0]}")")/../utils.sh")"
 ensure_test_container
 
+export DOCKER_TEST_NETWORK_NAME="pyinfra-examples-python-web-app"
+
 echo "Create Docker network..."
 docker network create "$DOCKER_TEST_NETWORK_NAME"
 
