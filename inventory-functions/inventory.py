@@ -3,10 +3,14 @@ def make_docker_inventory():
     # and the values are either a list of hosts or a tuple of (hosts, data).
     return {
         "docker_hosts": [
-            "@docker/ubuntu:22.04",
+            "@docker/debian:9",
+            "@docker/debian:8",
         ],
         "docker_hosts_with_data": (
-            ["@docker/ubuntu:24.04"],
-            {"key": "value"},
+            [
+                "@docker/ubuntu:24.04",
+                "@docker/ubuntu:22.04",
+            ],
+            {"_sudo": True},
         ),
     }
