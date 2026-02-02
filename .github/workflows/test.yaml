@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - dir: python-web-app
+          - dir: full-deploys/python-web-app
             deploy-file: deploy.py
             inventory-file: inventories/docker.py
     runs-on: ubuntu-latest
