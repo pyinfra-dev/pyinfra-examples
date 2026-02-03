@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-source "$(realpath "$(realpath "$(dirname "${BASH_SOURCE[0]}")")/../utils.sh")"
+source "$(realpath "$(realpath "$(dirname "${BASH_SOURCE[0]}")")/../../utils.sh")"
 
 export DOCKER_TEST_NETWORK_NAME="pyinfra-examples-python-web-app"
 
