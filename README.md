@@ -13,7 +13,7 @@ Simple: deploys two servers: one database and one web running a Python app fetch
 
 ### [`foundationdb-cluster`](./full-deploys/foundationdb-cluster)
 
-Advanced: sets up a five node FoundationDB cluster from scratch. Uses runtime callbacks to bootstrap.
+Advanced: sets up a five node FoundationDB cluster from scratch. Uses nested operations (callbacks) to bootstrap.
 
 ## Snippets
 
