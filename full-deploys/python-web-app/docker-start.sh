@@ -17,6 +17,6 @@ run_test_container pyinfra-example-python-web-app-dbserver -p 9023:22
 echo
 echo "Doker containers are now ready to run the pyinfra deploy, you can do this by running:"
 echo
-echo "    pyinfra inventories/docker.py deploy.py"
+echo "    pyinfra inventories/docker.py deploy_app.py"
 echo
 echo "Once complete, don't forget to remove the Docker containers and network using the ./docker-stop.sh script!"
