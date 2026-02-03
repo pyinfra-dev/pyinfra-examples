@@ -8,9 +8,14 @@ jobs:
     strategy:
       matrix:
         include:
-          - dir: python-web-app
-            deploy-file: deploy.py
+          - dir: full-deploys/python-web-app
+            deploy-file: deploy_app.py
             inventory-file: inventories/docker.py
+
+          - dir: full-deploys/foundationdb-cluster
+            deploy-file: deploy_foundationdb.py
+            inventory-file: inventories/docker.py
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,10 +24,19 @@ jobs:
           python-version: "3.12"
       - uses: docker/setup-buildx-action@v2
       - run: pip install pyinfra --pre
+
       - run: ./docker-start.sh
         working-directory: ${{ matrix.dir }}
+
       - name: Run pyinfra deploy
         run: pyinfra -y ${{ matrix.inventory-file }} ${{ matrix.deploy-file }}
         working-directory: ${{ matrix.dir }}
+        if: ${{ !runner.debug }}
+
+      - name: Run pyinfra deploy (debug mode)
+        run: pyinfra -y -vvv ${{ matrix.inventory-file }} ${{ matrix.deploy-file }}
+        working-directory: ${{ matrix.dir }}
+        if: ${{ runner.debug }}
+
       - run: ./docker-stop.sh
         working-directory: ${{ matrix.dir }}
