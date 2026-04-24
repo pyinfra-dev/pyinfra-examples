@@ -13,16 +13,17 @@ jobs:
             inventory-file: inventories/docker.py
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: "3.12"
-      - uses: docker/setup-buildx-action@v2
-      - run: pip install pyinfra --pre
+          enable-cache: true
+      - uses: docker/setup-buildx-action@v3
+      - name: Install pyinfra from uv.lock
+        run: uv sync --frozen
       - run: ./docker-start.sh
         working-directory: ${{ matrix.dir }}
       - name: Run pyinfra deploy
-        run: pyinfra -y ${{ matrix.inventory-file }} ${{ matrix.deploy-file }}
+        run: uv run pyinfra -y ${{ matrix.inventory-file }} ${{ matrix.deploy-file }}
         working-directory: ${{ matrix.dir }}
       - run: ./docker-stop.sh
         working-directory: ${{ matrix.dir }}
