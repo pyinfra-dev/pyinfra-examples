@@ -1,0 +1,13 @@
+[project]
+name = "pyinfra-examples"
+version = "0.1.0"
+description = "A set of documented & tested pyinfra deploys."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE.md" }
+dependencies = [
+    "pyinfra==3.7",
+]
+
+[tool.uv]
+package = false

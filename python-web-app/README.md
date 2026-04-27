@@ -12,7 +12,7 @@ This example sets up two servers one database and one webserver. The webserver i
 ./docker-start.sh
 
 # Run pyinfra against them
-pyinfra inventories/docker.py deploy.py
+uv run pyinfra inventories/docker.py deploy.py
 
 # The app should now be accessible in browser on localhost:5000
 # (the app is just a fork of a tutorial: https://github.com/Fizzadar/Flask-Web-App-Tutorial)
